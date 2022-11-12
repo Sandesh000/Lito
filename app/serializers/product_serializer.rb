@@ -1,5 +1,5 @@
 class ProductSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :size, :price, :discount_price, :product_type, :condition, :sub_category_id, :brand_id, :created_at, :updated_at, :images
+  attributes :id, :name, :description, :size, :price,:colour, :discount_price, :product_type, :condition, :sub_category_id, :brand_id, :created_at, :updated_at, :images
   # attribute :images do |object|
   #       object.images.attached?
   #       # url: Rails.application.routes.url_helpers.url_for(image)

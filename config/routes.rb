@@ -16,5 +16,7 @@ Rails.application.routes.draw do
   resources :brands do
     resources :products
   end
-  get "/all_products", to: "products#index"
+  get "/products", to: "products#index"
+  get "/products/:id", to: "products#show"
+
 end
