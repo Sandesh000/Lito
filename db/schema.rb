@@ -113,6 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_125858) do
     t.datetime "updated_at", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.bigint "phone_number"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

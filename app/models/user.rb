@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :username, presence: true, uniqueness: true
+  validates :phone_number, presence: true, uniqueness:true, length:{is:10}
   validates :password,
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
