@@ -2,9 +2,9 @@ class ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    host = Rails.application.routes.default_url_options[:host] = "https://localhost:3000/"
+    # host = Rails.application.routes.default_url_options[:host] = "https://localhost:3000/"
     
-    # host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
+    host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
 
   	# debugger
     @products = Product.all

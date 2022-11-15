@@ -12,9 +12,9 @@ class BrandsController < ApplicationController
   def show
     @brand = Brand.find(params[:id])
     @products = @brand.products.all
-    host = Rails.application.routes.default_url_options[:host] = "https://localhost:3000/"
+    # host = Rails.application.routes.default_url_options[:host] = "https://localhost:3000/"
 
-    # host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
+    host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
     # @All_products = Product.all
       data = []
        @products.each do |product|
