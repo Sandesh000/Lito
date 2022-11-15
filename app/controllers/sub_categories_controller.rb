@@ -1,4 +1,6 @@
 class SubCategoriesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     # @sub_categories = SubCategory.all
     # render json: @sub_categories
@@ -21,4 +23,16 @@ class SubCategoriesController < ApplicationController
 			}, status: :ok
 
   end
+  
+#   def edit
+#     debugger
+#         @sub_category = SubCategory.find(1)
+
+
+
+#     @products = @sub_category.products.find_by_product_type!(params[:_product_type])
+#     render json:@products
+#     rescue ActiveRecord::RecordNotFound
+#       render json: { errors: 'products not found' }, status: :not_found
+#   end
 end

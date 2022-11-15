@@ -23,8 +23,8 @@ class ProductSerializer < ActiveModel::Serializer
   #       } 
   #   end
   def images
-    host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
-    # host = Rails.application.routes.default_url_options[:host] = "http://localhost:3000/"
+    # host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
+    host = Rails.application.routes.default_url_options[:host] = "http://localhost:3000/"
 
     if object.images.attached?
       object.images.map { |img|

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get 'password_resets/new'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -18,5 +19,11 @@ Rails.application.routes.draw do
   end
   get "/products", to: "products#index"
   get "/products/:id", to: "products#show"
+
+  resources :users, param: :_username
+  post '/auth/login', to: 'authentication#login'
+  # get '/*a', to: 'application#not_found'
+
+  resources :password_resets
 
 end

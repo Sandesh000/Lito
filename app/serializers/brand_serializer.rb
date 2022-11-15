@@ -7,8 +7,8 @@ class BrandSerializer < ActiveModel::Serializer
   # ]
 
   def image
-    # host = Rails.application.routes.default_url_options[:host] = "http://localhost:3000/"
-    host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
+    host = Rails.application.routes.default_url_options[:host] = "http://localhost:3000/"
+    # host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
 
     if object.image.attached?
       host + Rails.application.routes.url_helpers.rails_blob_path(object.image, only_path: true)
