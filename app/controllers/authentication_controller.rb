@@ -5,8 +5,12 @@ class AuthenticationController < ApplicationController
 
   # POST /auth/login
   def login
-    # if params[:loginn] 
-      @user = User.find_by(params[:email || :username]) 
+    
+      @user = User.find_by(email: params[:email_or_username]) 
+      if @user.present?
+      else
+        @user = User.find_by(username: params[:email_or_username]) 
+      end
     # else
        # @user = User.find_by_username(params[:loginn])
     # end
@@ -25,4 +29,5 @@ class AuthenticationController < ApplicationController
   def login_params
     params.permit(:email_or_username, :password)
   end
+ 
 end

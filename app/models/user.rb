@@ -21,7 +21,8 @@ class User < ApplicationRecord
 
 
   def email_or_username
-    @loginn || self.username || self.email 
+    @email_or_username || self.username || self.email 
+    # :username  || :email
   end
 
 

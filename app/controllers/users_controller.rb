@@ -28,10 +28,10 @@ class UsersController < ApplicationController
   # PUT /users/{username}
   def update
     unless @user.update(user_params)
-      render json: { errors: @user.errors.full_messages },
-             status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages },status: :unprocessable_entity
+    else
+      render json: {message: "updated successfully"}
     end
-    render json: {message: "updated successfully"}
   end
 
   # DELETE /users/{username}
