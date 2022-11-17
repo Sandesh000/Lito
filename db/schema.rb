@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_125858) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_16_054327) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_125858) do
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
   end
 
+  create_table "rent_products", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "size"
+    t.string "colour"
+    t.decimal "market_price"
+    t.decimal "rent_price", default: [], array: true
+    t.decimal "refundable_deposit", default: [], array: true
+    t.string "product_type"
+    t.string "condition"
+    t.bigint "sub_category_id", null: false
+    t.bigint "brand_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_rent_products_on_brand_id"
+    t.index ["sub_category_id"], name: "index_rent_products_on_sub_category_id"
+  end
+
   create_table "sub_categories", force: :cascade do |t|
     t.string "name"
     t.bigint "category_id", null: false
@@ -120,5 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_125858) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "sub_categories"
+  add_foreign_key "rent_products", "brands"
+  add_foreign_key "rent_products", "sub_categories"
   add_foreign_key "sub_categories", "categories"
 end

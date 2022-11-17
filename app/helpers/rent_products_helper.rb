@@ -1,0 +1,2 @@
+module RentProductsHelper
+end

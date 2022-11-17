@@ -5,8 +5,11 @@ class AuthenticationController < ApplicationController
 
   # POST /auth/login
   def login
-  
-    @user = User.find_by_email(params[:email])
+    # if params[:loginn] 
+      @user = User.find_by(params[:email || :username]) 
+    # else
+       # @user = User.find_by_username(params[:loginn])
+    # end
     if @user.authenticate(params[:password])
       token = JsonWebToken.encode(user_id: @user.id)
       time = Time.now + 24.hours.to_i
@@ -20,6 +23,6 @@ class AuthenticationController < ApplicationController
   private
 
   def login_params
-    params.permit(:email, :password)
+    params.permit(:email_or_username, :password)
   end
 end
