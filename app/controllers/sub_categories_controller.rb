@@ -8,7 +8,7 @@ class SubCategoriesController < ApplicationController
 
   def show
     # debugger
-    @category = Category.find(params[:id])
+    @category = Category.find(params[:category_id])
     @sub_category = @category.sub_categories.find(params[:id])
     @products = @sub_category.products.all
     # host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
