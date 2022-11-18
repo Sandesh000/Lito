@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :brands do
     resources :products
   end
+  get "/products/:product_type", to: "products#show_product"
   get "/rent_products", to: "rent_products#index"
   get "/rent_products/:id", to: "rent_products#show"
 
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :users, param: :_username
   post '/auth/login', to: 'authentication#login'
+  delete '/auth/logout', to: 'authentication#logout'
+
   # get '/*a', to: 'application#not_found'
 
   resources :password_resets

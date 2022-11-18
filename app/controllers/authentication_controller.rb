@@ -7,13 +7,17 @@ class AuthenticationController < ApplicationController
   def login
     
       @user = User.find_by(email: params[:email_or_username]) 
-      if @user.present?
-      else
+      unless @user.present?
+        # debugger
         @user = User.find_by(username: params[:email_or_username]) 
+        unless @user.present?
+          render json:{error:"user not found"}
+        end
       end
     # else
        # @user = User.find_by_username(params[:loginn])
     # end
+  if @user.present?
     if @user.authenticate(params[:password])
       token = JsonWebToken.encode(user_id: @user.id)
       time = Time.now + 24.hours.to_i
@@ -21,6 +25,18 @@ class AuthenticationController < ApplicationController
                      username: @user.username }, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
+    end
+  end
+  end
+   
+
+  def logout
+    debugger
+    if @current_user.present?
+      @current_user.destroy
+      render json:{message:"you have successfully logout"}
+    else
+      render json:{message:"you are not login"}
     end
   end
 
