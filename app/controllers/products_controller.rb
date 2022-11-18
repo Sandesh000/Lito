@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
   	render json:@product
   end
 
-  def show_product
+  def product_show
     host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
 
     @product_type = params[:product_type]

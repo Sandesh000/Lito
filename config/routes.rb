@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :brands do
     resources :products
   end
-  get "/products/:product_type", to: "products#show_product"
+  get "/products/product_type/:product_type", to: "products#product_show"
   get "/rent_products", to: "rent_products#index"
   get "/rent_products/:id", to: "rent_products#show"
 
