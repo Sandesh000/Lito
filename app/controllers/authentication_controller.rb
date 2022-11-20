@@ -30,15 +30,7 @@ class AuthenticationController < ApplicationController
   end
    
 
-  def logout
-    debugger
-    if @current_user.present?
-      @current_user.destroy
-      render json:{message:"you have successfully logout"}
-    else
-      render json:{message:"you are not login"}
-    end
-  end
+ 
 
   private
 
