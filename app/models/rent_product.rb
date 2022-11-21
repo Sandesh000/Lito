@@ -1,7 +1,6 @@
 class RentProduct < ApplicationRecord
-  belongs_to :sub_category
+  belongs_to :rent_sub_category
   belongs_to :brand
+  has_many :rent_prices
   has_many_attached :images
-
-  validates :name,:description, :size, :rent_price, :refundable_deposit, :market_price, :product_type, :condition,:colour,  presence: true
 end

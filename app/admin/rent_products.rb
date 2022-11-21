@@ -5,27 +5,25 @@ ActiveAdmin.register RentProduct do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :description, :size, :market_price, :product_type, :condition, :colour, :sub_category_id, :brand_id,  :images => [],:rent_price =>[], :refundable_deposit =>[]
+  permit_params :name, :description, :size, :colour, :market_price, :product_type, :condition, :rent_sub_category_id, :brand_id, :images => []
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :description, :size, :colour, :market_price, :rent_price, :refundable_deposit, :product_type, :condition, :sub_category_id, :brand_id]
+  #   permitted = [:name, :description, :size, :colour, :market_price, :product_type, :condition, :rent_sub_category_id, :brand_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
- form html: { multipart: true } do |f|
+  form html: { multipart: true } do |f|
     f.semantic_errors # shows errors on :base
     f.inputs do
-      f.input :sub_category
+      f.input :rent_sub_category
       f.input :brand
       f.input :name
       f.input :description
       f.input :size,:input_html => { :maxlength => 10 }
       f.input :colour
       f.input :market_price
-      f.input :rent_price, input_html: { multiple: true }
-      f.input :refundable_deposit, input_html: { multiple: true }
       f.input :product_type
       f.input :condition
 
@@ -39,15 +37,22 @@ ActiveAdmin.register RentProduct do
   show do
     attributes_table do
       row :name
-      row :sub_category
+      row :rent_sub_category
       row :brand
       row :name
       row :description
       row :size
       row :colour
       row :market_price
-      row :rent_price
-      row :refundable_deposit
+      row :rent_price do 
+        div do
+          rent_product.rent_prices.each do |p|
+            div do 
+              (p.price)
+            end
+          end
+        end
+      end
       row :product_type
       row :condition
       # row :images do |ad|
@@ -66,5 +71,6 @@ ActiveAdmin.register RentProduct do
       active_admin_comments
     end
   end
+  
   
 end

@@ -13,14 +13,18 @@ Rails.application.routes.draw do
   resources :sub_categories do
     resources :products
   end
-  resources :sub_categories do
-    resources :rent_products
+  resources :categories do
+    resources :rent_sub_categories do
+      resources :rent_products
+    end
   end
   resources :brands
   resources :brands do
     resources :products
   end
   get "/products/product_type/:product_type", to: "products#product_show"
+  get "/rent_products/product_type/:product_type", to: "rent_products#product_show"
+
   get "/rent_products", to: "rent_products#index"
   get "/rent_products/:id", to: "rent_products#show"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_16_054327) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_103143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,22 +97,38 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_054327) do
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
   end
 
+  create_table "rent_prices", force: :cascade do |t|
+    t.bigint "rent_product_id", null: false
+    t.decimal "price"
+    t.decimal "refundable_deposit"
+    t.string "time_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rent_product_id"], name: "index_rent_prices_on_rent_product_id"
+  end
+
   create_table "rent_products", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "size"
     t.string "colour"
     t.decimal "market_price"
-    t.decimal "rent_price", default: [], array: true
-    t.decimal "refundable_deposit", default: [], array: true
     t.string "product_type"
     t.string "condition"
-    t.bigint "sub_category_id", null: false
+    t.bigint "rent_sub_category_id", null: false
     t.bigint "brand_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_rent_products_on_brand_id"
-    t.index ["sub_category_id"], name: "index_rent_products_on_sub_category_id"
+    t.index ["rent_sub_category_id"], name: "index_rent_products_on_rent_sub_category_id"
+  end
+
+  create_table "rent_sub_categories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_rent_sub_categories_on_category_id"
   end
 
   create_table "sub_categories", force: :cascade do |t|
@@ -138,7 +154,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_054327) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "sub_categories"
+  add_foreign_key "rent_prices", "rent_products"
   add_foreign_key "rent_products", "brands"
-  add_foreign_key "rent_products", "sub_categories"
+  add_foreign_key "rent_products", "rent_sub_categories"
+  add_foreign_key "rent_sub_categories", "categories"
   add_foreign_key "sub_categories", "categories"
 end
