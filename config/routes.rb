@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get "/products", to: "products#index"
   get "/products/:id", to: "products#show"
 
-  resources :users, param: :_username
+  resources :users, param: :username
   post '/auth/login', to: 'authentication#login'
   
 
@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get '/wishlists/add_product', to: 'wishlists#add_product'
   get '/wishlists/remove_product', to: 'wishlists#remove_product'
   get '/wishlists', to:'wishlists#show'
+  get '/wishlists/add_rent_product', to: 'wishlists#add_rent_product'
+  get '/wishlists/remove_rent_product', to: 'wishlists#remove_rent_product'
 
   # resources :wishlists
 
