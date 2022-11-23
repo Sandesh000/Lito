@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   belongs_to :sub_category
   belongs_to :brand
   has_many_attached :images
+  has_and_belongs_to_many :wishlists
 
   validates :name,:description, :size, :price, :discount_price, :product_type, :condition,:colour,  presence: true
   # validate :correct_image_type

@@ -24,9 +24,10 @@ Rails.application.routes.draw do
   end
   get "/products/product_type/:product_type", to: "products#product_show"
   get "/rent_products/product_type/:product_type", to: "rent_products#product_show"
-
-  get "/rent_products", to: "rent_products#index"
   get "/rent_products/:id", to: "rent_products#show"
+
+  # get "/rent_products", to: "rent_products#index"
+  # get "/rent_products/:id", to: "rent_products#show"
 
   get "/products", to: "products#index"
   get "/products/:id", to: "products#show"
@@ -38,5 +39,13 @@ Rails.application.routes.draw do
   # get '/*a', to: 'application#not_found'
 
   resources :password_resets
+
+
+
+  get '/wishlists/add_product', to: 'wishlists#add_product'
+  get '/wishlists/remove_product', to: 'wishlists#remove_product'
+  get '/wishlists', to:'wishlists#show'
+
+  # resources :wishlists
 
 end

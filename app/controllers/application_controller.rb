@@ -19,8 +19,12 @@ class ApplicationController < ActionController::Base
   end
 
   def find_user    
-    @user = User.find_by_username!(params[:_username])
+    @user = User.find_by_username!(params[:username])
     rescue ActiveRecord::RecordNotFound
       render json: { errors: 'User not found' }, status: :not_found
+  end
+
+  def create_wish
+    @wishlists = Wishlist.create(user_id: @user.id)
   end
 end

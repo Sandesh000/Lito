@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_103143) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_23_050613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103143) do
     t.index ["sub_category_id"], name: "index_products_on_sub_category_id"
   end
 
+  create_table "products_wishlists", id: false, force: :cascade do |t|
+    t.bigint "wishlist_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wishlist_id", "product_id"], name: "index_products_wishlists_on_wishlist_id_and_product_id"
+  end
+
   create_table "rent_prices", force: :cascade do |t|
     t.bigint "rent_product_id", null: false
     t.decimal "price"
@@ -148,6 +156,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103143) do
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.bigint "phone_number"
+    t.string "first_name"
+    t.string "last_name"
+  end
+
+  create_table "wishlists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wishlists_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -159,4 +176,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_103143) do
   add_foreign_key "rent_products", "rent_sub_categories"
   add_foreign_key "rent_sub_categories", "categories"
   add_foreign_key "sub_categories", "categories"
+  add_foreign_key "wishlists", "users"
 end
