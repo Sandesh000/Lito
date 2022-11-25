@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
     host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
 
   	# debugger
-    @products = Product.all
+    @products = Product.all.reverse
       data = []
          @products.each do |product|
         products = {}
@@ -31,26 +31,27 @@ class ProductsController < ApplicationController
   end
 
   def product_show
+    # debugger
     host = Rails.application.routes.default_url_options[:host] = "https://litoo.herokuapp.com/"
-    @product_type = params[:product_type]
+    # @product_type = params[:product_type]
     @all = RentProduct.all
 
    
       # debugger
-    if params[:product_type].present?
+    # if params[:rent_product_type].present?
           @pro = @all.each do|rp| 
             rp.product_type 
           # end
           # debugger
-            if params[:product_type]== rp.product_type 
+            if params[:rent_product_type]== rp.product_type 
            # if @category.name == "Rent"
-              @rent_products = RentProduct.where("rent_products.product_type like ?",params[:product_type])
+              @rent_products = RentProduct.where("rent_products.product_type like ?",params[:rent_product_type])
               # render json:@products
               data = []
                   @rent_products.each do |rent_product|
                       rent_products = {}
                       rent_products[:rent_product] = rent_product
-                      rent_products[:images] =host + Rails.application.routes.url_helpers.rails_blob_path(rent_product.images.first, only_path: true)
+                      rent_products[:images] = host + Rails.application.routes.url_helpers.rails_blob_path(rent_product.images.first, only_path: true)
                       data << rent_products
                   end
               render json: {
@@ -63,7 +64,7 @@ class ProductsController < ApplicationController
             end
         end
 
-      unless @rent_products.present?
+      if params[:product_type].present? #@rent_products.present?
 
         # @product_type = params[:product_type]
         @products = Product.where("products.product_type like ?",params[:product_type])
@@ -84,7 +85,7 @@ class ProductsController < ApplicationController
 
     
 
-      end
+      # end
     end
     
 end

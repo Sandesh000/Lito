@@ -21,10 +21,12 @@ class WishlistsController < ApplicationController
 	        products[:images] =host + Rails.application.routes.url_helpers.rails_blob_path(product.images.first, only_path: true)
 	        data << products
 	    end
-	    
+
         @rent_products.each do |rent_product|
 	        rent_products = {}
 	        rent_products[:rent_product] = rent_product
+	        rent_products[:rent_prices] = rent_product.rent_prices
+	        
 	        rent_products[:images] =host + Rails.application.routes.url_helpers.rails_blob_path(rent_product.images.first, only_path: true)
 	        data << rent_products
 	    end

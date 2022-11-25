@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
   def create_wish
     @wishlists = Wishlist.create(user_id: @user.id)
   end
+
+  def create_cart
+    @carts = Cart.create(user_id: @user.id)
+  end
 end

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :brands do
     resources :products
   end
-  get "/products/product_type/:product_type", to: "products#product_show"
+  get "/products/product_type", to: "products#product_show"
   get "/rent_products/product_type/:product_type", to: "rent_products#product_show"
   get "/rent_products/:id", to: "rent_products#show"
 
@@ -42,12 +42,18 @@ Rails.application.routes.draw do
 
 
 
-  get '/wishlists/add_product', to: 'wishlists#add_product'
-  get '/wishlists/remove_product', to: 'wishlists#remove_product'
+  post '/wishlists/add_product', to: 'wishlists#add_product'
+  delete '/wishlists/remove_product', to: 'wishlists#remove_product'
   get '/wishlists', to:'wishlists#show'
-  get '/wishlists/add_rent_product', to: 'wishlists#add_rent_product'
-  get '/wishlists/remove_rent_product', to: 'wishlists#remove_rent_product'
+  post '/wishlists/add_rent_product', to: 'wishlists#add_rent_product'
+  delete '/wishlists/remove_rent_product', to: 'wishlists#remove_rent_product'
 
   # resources :wishlists
+
+  post '/carts/add_product', to: 'carts#add_product'
+  delete '/carts/remove_product', to: 'carts#remove_product'
+  get '/carts', to:'carts#show'
+  post '/carts/add_rent_product', to: 'carts#add_rent_product'
+  delete '/carts/remove_rent_product', to: 'carts#remove_rent_product'
 
 end
