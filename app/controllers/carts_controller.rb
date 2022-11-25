@@ -46,8 +46,17 @@ skip_before_action :verify_authenticity_token
 
 
 	    @products.each do |product|
+	    	price = product.price - product.discount_price
 	    	# debugger
-	    	@sub_total += product.price 
+	    	@sub_total += price 
+	    end
+	    @rent_prices.each do |rent_price|
+	    	# debugger
+	    	@sub_total += rent_price.price 
+	    end
+	    @rent_prices.each do |rent_price|
+	    	# debugger
+	    	@deposit += rent_price.refundable_deposit
 	    end
 
 	    # @rent_products.each do |rent_product|
@@ -98,7 +107,7 @@ skip_before_action :verify_authenticity_token
      cartprice = @current_user.cart.rent_prices
 
      chosen_rent_product = RentProduct.find(params[:id])
-     debugger
+     # debugger
      chosen_rent_price = chosen_rent_product.rent_prices.find(params[:rent_price_id])
      # chosen_rent_product = chosen_rent_product + chosen_rent_price
      # @rent = chosen_rent_product.rent_prices 
