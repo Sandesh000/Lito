@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_173645) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_28_133634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -54,6 +54,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_173645) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.string "area"
+    t.integer "pincode"
+    t.bigint "phone_number"
+    t.integer "house_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -109,6 +125,36 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_173645) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "order_number"
+    t.integer "order_status", default: 0
+    t.decimal "deposit_money", default: "0.0"
+    t.decimal "sub_total", default: "0.0"
+    t.decimal "total", default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "address_id"
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "orders_products", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id", "product_id"], name: "index_orders_products_on_order_id_and_product_id"
+  end
+
+  create_table "orders_rent_products", id: false, force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "rent_product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id", "rent_product_id"], name: "index_orders_rent_products_on_order_id_and_rent_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -204,7 +250,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_173645) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "users"
   add_foreign_key "carts", "users"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "sub_categories"
   add_foreign_key "rent_prices", "rent_products"

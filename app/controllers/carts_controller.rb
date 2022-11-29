@@ -109,14 +109,7 @@ skip_before_action :verify_authenticity_token
      chosen_rent_product = RentProduct.find(params[:id])
      # debugger
      chosen_rent_price = chosen_rent_product.rent_prices.find(params[:rent_price_id])
-     # chosen_rent_product = chosen_rent_product + chosen_rent_price
-     # @rent = chosen_rent_product.rent_prices 
-     # $rent = chosen_rent_price
-     # chosen = []
-     # chosen.push(chosen_rent_product)
-     # chosen.push(chosen_rent_price)
-     # chosen_rent_product.push(chosen_rent_price)
-     # debugger
+    
      if cart.include?(chosen_rent_product)
      	render json:{messages:"rent_product has already added in your cart"}
      else
@@ -135,11 +128,10 @@ skip_before_action :verify_authenticity_token
 	 end
   end
   def remove_rent_product
-  	# debugger
+  	
      cart = @current_user.cart.rent_products
      cartprice = @current_user.cart.rent_prices
 
-     # products = Product.find_by(params[:product_id])
      chosen_rent_product = RentProduct.find(params[:id])
      chosen_rent_price = chosen_rent_product.rent_prices.find(params[:rent_price_id])
 

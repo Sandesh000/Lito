@@ -56,4 +56,18 @@ Rails.application.routes.draw do
   post '/carts/add_rent_product', to: 'carts#add_rent_product'
   delete '/carts/remove_rent_product', to: 'carts#remove_rent_product'
 
+
+  #order
+  post '/carts/place_order', to: 'orders#place_order'
+  delete '/carts/cancel_order/:id', to: 'orders#cancel_order'
+  resources :orders
+
+
+  #shipping_address
+  # post '/users/:user_id/address', to: 'addresses#create_address'
+   
+  resources :addresses
+  
+
+
 end
