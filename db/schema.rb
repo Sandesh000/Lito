@@ -129,7 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_28_133634) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "order_number"
+    t.string "order_number"
     t.integer "order_status", default: 0
     t.decimal "deposit_money", default: "0.0"
     t.decimal "sub_total", default: "0.0"

@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
 	skip_before_action :verify_authenticity_token
 	before_action :authorize_request
+	ORDER_NO_FORMAT = '00000'
+
 	def index
 		
 		@orders = @current_user.orders.all
@@ -16,8 +18,19 @@ class OrdersController < ApplicationController
 	    @products = @current_user.cart.products
     	@rent_products = @current_user.cart.rent_products
     	@rent_prices = @current_user.cart.rent_prices
-		
-		  order_number = DateTime.now.strftime("%Y/%m/%d").to_s + SecureRandom.hex(16/4).upcase
+    	# number = 'OD'+ORDER_NO_FORMAT.split('OD')[1]
+    	# @order_number = number
+    	order_number = nil
+    	loop do
+		  order_number = secure_token
+		  break unless Order.exists?(:order_number => order_number)
+		end
+
+		  
+		# @order_number = generate_order_number
+		  # @order_number = DateTime.now.strftime("%Y/%m/%d").to_s 
+		  # generate_order_number
+
 		@sub_total = 0
 	    @total = 0
 	    @shipping_charge = 0
@@ -89,16 +102,15 @@ class OrdersController < ApplicationController
     )
 	end
 	def secure_token
-	    DateTime.now.strftime("%Y/%m/%d").to_s + SecureRandom.hex(16/4).upcase
+    	DateTime.now.strftime("%Y/%m/").to_s + SecureRandom.hex(16/4).upcase
+  	end
+	def generate_order_number
+
+	  self.order_number = 5.times.map { [*0..9].sample }.join.to_i
+	  self.class.find_by(order_number: order_number) ? 
+	    generate_order_number : self.order_number
 	end
-	def generate_number
-	    possible_values = 'abfhijlqrstuxy'.upcase.split('') | '123456789'.split('')
-	    record = true
-	    while record
-	        random = Array.new(5){possible_values[rand(possible_values.size)]}.join
-	        record = Order.find(:first, :conditions => ["number = ?", random])
-	    end
-	    self.number = random
-	end
+	 
+	
 
 end
