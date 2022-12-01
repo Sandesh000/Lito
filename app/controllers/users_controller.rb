@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      # create_wish
+      create_wish
       create_cart
       render json: @user, status: :created
     else

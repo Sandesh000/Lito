@@ -61,13 +61,60 @@ ActiveAdmin.register Order do
       row :sub_total
       row :total
 
-      row :order_items do |order|
+      row :products do |order|
         (order.products)
+
       end
+      row :rent_products do |order|
+        (order.rent_products)
+
+      end
+   
    
            
     end
+
+   div class: 'address' do
+      h3 'Address'
+      div class: 'attributes_table' do
+        table do
+          tr do
+            th 'first_name'
+            th 'last_name'
+            th 'country'
+            th 'state'
+            th 'city'
+            th 'area'
+            th 'house_number'
+            th 'phone_number'
+            th 'pincode'
+           
+
+
+          end
+            
+            tr do
+              # debugger
+              # td link_to product.name, admin_product_path(product)
+              td order.address.first_name
+              td order.address.last_name
+              td order.address.country
+              td order.address.state
+              td order.address.city
+              td order.address.area
+              td order.address.house_number
+              td order.address.phone_number
+              td order.address.pincode
+
+
+
+              # td product.varietal.name
+            end
+        end
+      end
+    end
   end
+end
  
   
-end
+

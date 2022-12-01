@@ -11,9 +11,12 @@ class OrdersController < ApplicationController
 
 	end
 	def show
+		order = Order.find(params[:id])
+		render json:  OrderSerializer.new(order).serializable_hash , status: :ok
 	end
 	def place_order
-		
+	  if @current_user.address.present?
+
 		add = @current_user.address.id
 	    @products = @current_user.cart.products
     	@rent_products = @current_user.cart.rent_products
@@ -72,11 +75,14 @@ class OrdersController < ApplicationController
 				@current_user.cart.rent_prices.delete(@current_user.cart.rent_prices)
 				render json:{message:"order successfully placed"}
 			else
-				render json:{message:"Please add address "}
+				render json:{message:"something have wrong"}
 			end
 		else
 			render json:{message:"your cart is empty"}
 		end
+	else
+		render json:{message:"Please add address"}
+	end
 
 
 

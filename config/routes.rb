@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace ActiveAdmin.application.default_namespace do
+  get 'searchable_tags'
+  end
 
   # Defines the root path route ("/")
   # root "articles#index"
@@ -67,7 +70,7 @@ Rails.application.routes.draw do
   # post '/users/:user_id/address', to: 'addresses#create_address'
    
   resources :addresses
-  
+  resources :sales
 
 
 end

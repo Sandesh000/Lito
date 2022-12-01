@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   belongs_to :sub_category
   belongs_to :brand
+  has_one :sale
   has_many_attached :images
   has_and_belongs_to_many :wishlists
   has_and_belongs_to_many :carts

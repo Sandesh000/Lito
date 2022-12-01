@@ -1,7 +1,7 @@
 class Brand < ApplicationRecord
 	has_one_attached :image
 	has_many :products
-	validates :name, presence: true
+	validates :name, presence: true, uniqueness: true
 	validate :correct_image_type
       private
        def correct_image_type

@@ -8,10 +8,9 @@ class AddressesController < ApplicationController
 	end
 
 	def create
-
-		address = Address.new(address_params)
+		@address = Address.new(address_params)
 		# @address = Address.create(user_id: @user.id)
-		if address.save
+		if @address.save
 			render json:{message:"address added"}
 		else
 			render json:{message:"something have wrong"}
